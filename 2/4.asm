@@ -11,7 +11,7 @@ f proc
   ; stack
   ; [bp+4]: n
   ; [bp+2]: caller IP
-  ; [bp]: caller BP
+  ; [bp+0]: caller BP
   cmp word ptr [bp+4], 0
   jg f_B11
   f_B1D: ; default

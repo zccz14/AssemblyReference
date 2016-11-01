@@ -4,7 +4,7 @@ option casemap: none
 .stack 14
 .code
 ; f (n)
-; using 
+; using ax
 f proc
   push bp
   mov bp, sp
@@ -12,7 +12,7 @@ f proc
   ; stack
   ; [bp+4]: arg n
   ; [bp+2]: caller IP
-  ; [bp]: caller BP
+  ; [bp+0]: caller BP
   ; [bp-2]: counter i
   ; [bp-4]: the value to return
   mov word ptr [bp-2], 0

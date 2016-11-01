@@ -17,8 +17,8 @@ sum proc
   ; stack
   ; [bp+6]: the length of data (n)
   ; [bp+4]: address of data
-  ; [bp+2]: the old IP register
-  ; [bp]: the old BP register
+  ; [bp+2]: caller IP register
+  ; [bp+0]: caller BP register
   ; [bp-2]: the summary
   ; [sp=bp-4]: counter i
   mov word ptr [bp-2], 0 ; ret = 0
@@ -59,8 +59,8 @@ sort proc
   ; stack
   ; [bp+6]: the length of data (n)
   ; [bp+4]: the address of data
-  ; [bp+2]: the old IP register
-  ; [bp]: the old BP register
+  ; [bp+2]: caller IP register
+  ; [bp+0]: caller BP register
   ; [bp-2]: the counter i
   ; [bp-4]: the counter j
   ; [bp-6]: the variable x
@@ -96,8 +96,8 @@ sort proc
       mov si, ax
       mov ax, word ptr [si]   ; ax = data[j]
       
-      cmp ax, word ptr [bp-6] ; if data[j] <= x break
-        jle sort_L2E
+      cmp ax, word ptr [bp-6] ; if data[j] >= x break
+        jge sort_L2E
       
       mov ax, word ptr [bp-4] ; ax = j
       inc ax                  ; ax = j + 1
@@ -155,8 +155,7 @@ main proc far
   mov bx, 10
   div bx
   
-  lea bx, avg
-  mov [bx], ax ; store avg
+  mov avg, ax ; store avg
 
   call sort ; just using the same arguments
   add sp, 4 ; pop arguments or not
